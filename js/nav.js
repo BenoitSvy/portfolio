@@ -1,21 +1,28 @@
 const Nav = (() => {
   function init() {
-    const sections = document.querySelectorAll('section');
+    const targets = document.querySelectorAll('section[id], #demo');
     const links = document.querySelectorAll('.nav-links a');
+    const intersecting = new Set();
 
     const homeLink = document.querySelector('.nav-links a[href="#home"]');
     if (homeLink) homeLink.classList.add('active');
 
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        links.forEach(l => l.classList.remove('active'));
-        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-        if (active) active.classList.add('active');
+        if (entry.isIntersecting) intersecting.add(entry.target);
+        else intersecting.delete(entry.target);
       });
+
+      const ordered = Array.from(targets).filter(t => intersecting.has(t));
+      const active = ordered[ordered.length - 1];
+      if (!active) return;
+
+      links.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.nav-links a[href="#${active.id}"]`);
+      if (link) link.classList.add('active');
     }, { threshold: 0.4 });
 
-    sections.forEach(s => observer.observe(s));
+    targets.forEach(t => observer.observe(t));
   }
 
   return { init };

@@ -76,6 +76,37 @@
   max-width: 320px;
 }
 
+/* ── CTA bouton démo ── */
+
+.demo-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.8rem;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.03);
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+.demo-button svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.demo-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
 /* ── Responsive ── */
 
 @media (max-width: 768px) {
